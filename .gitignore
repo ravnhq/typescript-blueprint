@@ -3,6 +3,9 @@ node_modules/
 .pnp
 .pnp.js
 
+# Runtime data
+data/
+
 # Build outputs
 dist/
 build/
