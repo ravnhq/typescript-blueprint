@@ -1,0 +1,50 @@
+{
+  "name": "typescript-blueprint",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test:unit": "turbo test:unit",
+    "test:integration": "turbo test:integration",
+    "test:e2e": "turbo test:e2e",
+    "test:ai-tooling": "node scripts/check-ai-tooling.mjs",
+    "dev": "turbo dev",
+    "prepare": "husky && ruler apply"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
+    "@commitlint/types": "^20.5.0",
+    "@intellectronica/ruler": "^0.3.38",
+    "eslint": "^10.1.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.1",
+    "turbo": "^2.9.3",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.56.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,mts,cts}": [
+      "eslint --max-warnings=0 --no-warn-ignored"
+    ],
+    "*.{ts,tsx,mts,cts,js,mjs,cjs}": [
+      "prettier --check"
+    ]
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=10"
+  },
+  "packageManager": "pnpm@10.7.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ],
+    "overrides": {
+      "h3": ">=2.0.1-rc.18"
+    }
+  }
+}

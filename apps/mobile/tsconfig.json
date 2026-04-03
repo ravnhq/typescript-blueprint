@@ -1,0 +1,19 @@
+{
+  "extends": "@blueprint/typescript-config/tsconfig.react-native.json",
+  "compilerOptions": {
+    "paths": {
+      "~/*": [
+        "./app/*"
+      ]
+    }
+  },
+  "include": [
+    "app/**/*",
+    "src/**/*"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    ".expo"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "name": "@blueprint/web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "start": "node .output/server/index.mjs",
+    "generate": "tsr generate",
+    "typecheck": "tsr generate && tsc --noEmit",
+    "lint": "tsr generate && eslint src --max-warnings=0",
+    "test:unit": "vitest run --coverage",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@blueprint/shared": "workspace:*",
+    "@tanstack/react-router": "^1.168.10",
+    "@tanstack/react-start": "^1.167.16",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@blueprint/eslint-config": "workspace:*",
+    "@blueprint/testing-config": "workspace:*",
+    "@blueprint/typescript-config": "workspace:*",
+    "@playwright/test": "^1.52.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@tanstack/router-cli": "^1.166.25",
+    "@vitejs/plugin-react": "^4.5.2",
+    "@vitest/coverage-v8": "^4.1.2",
+    "jsdom": "^29.0.1",
+    "vite": "^7.3.1",
+    "vitest": "^4.1.2"
+  }
+}

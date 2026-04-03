@@ -1,0 +1,14 @@
+{
+  "name": "@blueprint/testing-config",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./vitest": "./vitest.config.base.ts",
+    "./vitest-integration": "./vitest.integration.config.base.ts"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^4.1.2",
+    "vitest": "^4.1.2"
+  }
+}

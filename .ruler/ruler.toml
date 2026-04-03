@@ -1,0 +1,35 @@
+# Ruler Configuration — TypeScript Blueprint
+# See https://ai.intellectronica.net/ruler for documentation.
+#
+# `ruler apply` generates agent-specific files from .ruler/AGENTS.md:
+#   Claude Code  → CLAUDE.md + .mcp.json + .claude/skills/
+#   Codex CLI    → AGENTS.md + .codex/config.toml + .codex/skills/
+#   Cursor       → AGENTS.md + .cursor/mcp.json + .cursor/skills/
+#   Copilot      → AGENTS.md + .vscode/mcp.json
+#   Gemini CLI   → AGENTS.md + .gemini/skills/
+#   OpenCode     → AGENTS.md + opencode.json + .opencode/skills/
+
+default_agents = ["claude", "codex", "cursor", "copilot", "gemini-cli", "opencode"]
+
+# Enable hierarchical rule discovery for monorepo workspaces.
+# Workspace-level .ruler/ directories can extend the root instructions.
+nested = true
+
+[gitignore]
+enabled = true
+
+# --- MCP Servers ---
+# Distributed to each agent's native MCP config format by `ruler apply`.
+
+[mcp_servers.exa]
+# No API key needed — free tier (3 QPS, 150 calls/day).
+# Append &exaApiKey=YOUR_KEY for higher limits + deep_search_exa.
+# Default tools: web_search_exa, get_code_context_exa, crawling_exa.
+# Adding web_search_advanced_exa for full search control (categories, domains, dates).
+url = "https://mcp.exa.ai/mcp?tools=web_search_exa,web_search_advanced_exa,get_code_context_exa,crawling_exa"
+
+[mcp_servers.context7]
+# Documentation lookup for libraries and frameworks.
+# Pin version for reproducible builds — update periodically.
+command = "npx"
+args = ["-y", "@upstash/context7-mcp@2.1.6"]

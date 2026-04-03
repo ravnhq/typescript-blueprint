@@ -1,0 +1,36 @@
+{
+  "name": "@blueprint/mobile",
+  "private": true,
+  "version": "0.0.0",
+  "main": "expo-router/entry",
+  "scripts": {
+    "dev": "expo start",
+    "build": "expo export --platform android --output-dir dist/android && expo export --platform ios --output-dir dist/ios && expo config --type public --json > /dev/null",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src app --max-warnings=0",
+    "test:unit": "vitest run --coverage",
+    "test:integration": "vitest run --config vitest.integration.config.ts"
+  },
+  "dependencies": {
+    "@blueprint/shared": "workspace:*",
+    "expo": "~55.0.11",
+    "expo-router": "~55.0.10",
+    "expo-status-bar": "~55.0.5",
+    "react": "^19.2.0",
+    "react-native": "0.83.4",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.24.0"
+  },
+  "devDependencies": {
+    "@blueprint/eslint-config": "workspace:*",
+    "@blueprint/testing-config": "workspace:*",
+    "@blueprint/typescript-config": "workspace:*",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/react-native": "^13.3.3",
+    "@types/react": "^19.1.2",
+    "@vitest/coverage-v8": "^4.1.2",
+    "jsdom": "^29.0.1",
+    "vitest": "^4.1.2"
+  }
+}
