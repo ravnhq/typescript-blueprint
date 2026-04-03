@@ -1,0 +1,235 @@
+{
+  "version": 1,
+  "skills": {
+    "agent-add-rule": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "0a31d121b5bfb65dfff7ebc5f4334a652cd5e933d52bc4e3d901c711859f367e"
+    },
+    "agent-init-deep": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "dcf02633dca368d121feddecf29548fad8acbf42ac34761fd2c31ce1da9f13a5"
+    },
+    "agent-pr-creator": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "7c515aad57df7805161ac10558ad005e2d39020c747cb9a837e091df7aafdce0"
+    },
+    "agent-skill-creator": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "1e958a11a74f3fed4429bdab2675e37c5d5dd212dabddbdb1cf14edb8308e046"
+    },
+    "building-native-ui": {
+      "source": "expo/skills",
+      "sourceType": "github",
+      "computedHash": "342df93f481a0dba919f372d6c7b40d2b4bf5b51dd24363aea2e5d0bae27a6fa"
+    },
+    "core-coding-standards": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "8bcc809068695139fc1084bcc4d823b2f785c942dfe45fac49f9beb2d4048ab3"
+    },
+    "design-accessibility": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "a82218ad41ea4104b69e1dfd4176c87af19e85ee6e321c0d1f283adeb3880665"
+    },
+    "design-frontend": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "52bbd7adf49bef29fcf513827b74ef8367e2110bd7adabd9afd8312268992e37"
+    },
+    "eval-agent-md": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "7e7ccd33624613da181a83444364739a6324d91aeb9230f031ce6e6a31e9e399"
+    },
+    "expo-api-routes": {
+      "source": "expo/skills",
+      "sourceType": "github",
+      "computedHash": "015c6b849507fda73fcc32d2448f033aaaaa21f5229085342b8421727a90cafb"
+    },
+    "expo-cicd-workflows": {
+      "source": "expo/skills",
+      "sourceType": "github",
+      "computedHash": "700b20b575fcbe75ad238b41a0bd57938abe495e62dc53e05400712ab01ee7c0"
+    },
+    "expo-deployment": {
+      "source": "expo/skills",
+      "sourceType": "github",
+      "computedHash": "9ea9f16374765c1b16764a51bd43a64098921b33f48e94d9c5c1cce24b335c10"
+    },
+    "expo-dev-client": {
+      "source": "expo/skills",
+      "sourceType": "github",
+      "computedHash": "234e2633b7fbcef2d479f8fe8ab20d53d08ed3e4beec7c965da4aff5b43affe7"
+    },
+    "expo-module": {
+      "source": "expo/skills",
+      "sourceType": "github",
+      "computedHash": "c1e47893d207b68c9a2a5b0de3f97042f82a65c0b3c3a33a7114029211b8e89b"
+    },
+    "expo-tailwind-setup": {
+      "source": "expo/skills",
+      "sourceType": "github",
+      "computedHash": "d39e806942fe880347f161056729b588a3cb0f1796270eebf52633fe11cfdce1"
+    },
+    "figma-to-react-components": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "3516dced669c45c3b37ffbbe3dc42824b56276278f8dd517e6270a74a74aa5d6"
+    },
+    "github": {
+      "source": "callstackincubator/agent-skills",
+      "sourceType": "github",
+      "computedHash": "32131aefe2317287d83e1d3ed5b2a83ca5b1a08142ee3b9bb4fc9d54ea348c31"
+    },
+    "github-actions": {
+      "source": "callstackincubator/agent-skills",
+      "sourceType": "github",
+      "computedHash": "3632dc997b2d8810bdc753173e269dfc0fd40b6fe6be0dd27b8f2abc58e47ada"
+    },
+    "grill-me": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "005e1cd51d4322531a401daca3d690affcbcd197f327f89120d6cfc165233a6e"
+    },
+    "lang-typescript": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "6420ba417bad34d6180f39209f776ae3219df055f3389fccb52363cf87a108f3"
+    },
+    "liquid-glass-ios": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "20c47304d7849890143f8a67bc957c1dd3e469993ca7d9d130274f66cd4f43f2"
+    },
+    "localize-ios": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "d0432113ea5e7591f380c9dcd1fafff9d41f2c1f9af2d0cd1e2a31c62b41c73b"
+    },
+    "native-data-fetching": {
+      "source": "expo/skills",
+      "sourceType": "github",
+      "computedHash": "3cd0ba91f359f9f84cd40f36f356287994a0e952520fac6e03ef7952d0397879"
+    },
+    "platform-backend": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "da025ee9643c3db6bc383bc9b2208391f910f6f3107d46eda0a74a0d68f2ce66"
+    },
+    "platform-cli": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "4a5bbb7e7d947a45ccac6a11192b4d2ed4bfb1acc1f03326ef423b63515c170f"
+    },
+    "platform-database": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "bfff58f7e2b39622e94edb75d0e0a2986326ae8ca4bed826366fe513ef332242"
+    },
+    "platform-frontend": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "96636854fb67626d7417296f9bd26f49dc52f1eb1c891e6d71cea26852c841cc"
+    },
+    "platform-testing": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "ee151704144633effb50132739671f6cb07665aa430d1c2dedd3766a682cbc6c"
+    },
+    "pr-comments-address": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "e2e7b0e220fbbd961b4a640a388c76e0489fb3aef65c9fa120ab80078d1843db"
+    },
+    "promptify": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "0db37e14e2c1f96b522d335663e07be32a9e55c92e3f6ec6b9c8d48494b8015a"
+    },
+    "react-native-best-practices": {
+      "source": "callstackincubator/agent-skills",
+      "sourceType": "github",
+      "computedHash": "6f5210e63faead5d3c0c8ff4f5ed5fda60ec7472ea2b212622c4e1ae6f12fefa"
+    },
+    "react-native-brownfield-migration": {
+      "source": "callstackincubator/agent-skills",
+      "sourceType": "github",
+      "computedHash": "ad7f024fa1adf831f8f9bfdc31da5bb820b8d2dc8f9e55147b558a0ea2b3c555"
+    },
+    "rewrite-commit-history": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "f42d24a72733060503a5246492f85af73593057836065c53b195db9e88d0237e"
+    },
+    "swift-concurrency": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "84c8c6a69715cce1e54066399148216f319b1f4b5801448a3cdc94578fe8aac0"
+    },
+    "tech-android": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "7e412f8997cc909b50a2f6d34c0028f2ad4a9237eda5d48b95b35dfe3a7de7a4"
+    },
+    "tech-drizzle": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "5154e547873530625514777840158fe30cbd813de50b761d2e549b5d17e550b5"
+    },
+    "tech-react": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "03c6b5a647b8ed1bdd395ad0568f9a7690ca469ed44dac698eefe7ea25e9d8bf"
+    },
+    "tech-trpc": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "28a4caac2ea0d74946a835849b01ee144a18fca471e5c9e207053b23bc392f5b"
+    },
+    "tech-vitest": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "8594fd9a88d0674ae523a39760ff6d03ad55515e3ba4389ad3f4a8662136e755"
+    },
+    "transcript-notes": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "26e1cf66bf4d80202edb6d65b6f7a884a3c761e69f13fe9a9c2fcbf84fa5f6f4"
+    },
+    "ts-linter": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "7fc5be5418850db7add1ddc70d80b3936dd9100a319bdbe32ac560a7d3758c3e"
+    },
+    "type-system-audit": {
+      "source": "ravnhq/ai-toolkit",
+      "sourceType": "github",
+      "computedHash": "84203a437e580b33bbb7083641fea64990040bc03c9d9d190bd50c632b8640c3"
+    },
+    "upgrading-expo": {
+      "source": "expo/skills",
+      "sourceType": "github",
+      "computedHash": "939a6820e0d6ead943bb4ad93cec647815e73fbc04043401773b2138e9e13b69"
+    },
+    "upgrading-react-native": {
+      "source": "callstackincubator/agent-skills",
+      "sourceType": "github",
+      "computedHash": "3a0fba5f03d67fbea03a915e34f2cee1397fb2968e7273dd3a5b4391df4250a6"
+    },
+    "use-dom": {
+      "source": "expo/skills",
+      "sourceType": "github",
+      "computedHash": "8eca0e229f16e3499e5dbf791a79f5a5cba1e98b4af88ca495c903930d7f1ba0"
+    },
+    "validate-skills": {
+      "source": "callstackincubator/agent-skills",
+      "sourceType": "github",
+      "computedHash": "aff52c5f1470ceedfa83c6bd7936b5bf70d347d72724585e3a2911d6d009caf4"
+    }
+  }
+}
