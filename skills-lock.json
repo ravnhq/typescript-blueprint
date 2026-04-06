@@ -1,6 +1,11 @@
 {
   "version": 1,
   "skills": {
+    "accessibility": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "computedHash": "6462f04969f59f771150e6410e6a11fa397f2934be0b51e8650f495feed1e28d"
+    },
     "agent-add-rule": {
       "source": "ravnhq/ai-toolkit",
       "sourceType": "github",
@@ -81,6 +86,11 @@
       "sourceType": "github",
       "computedHash": "3516dced669c45c3b37ffbbe3dc42824b56276278f8dd517e6270a74a74aa5d6"
     },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "computedHash": "063a0e6448123cd359ad0044cc46b0e490cc7964d45ef4bb9fd842bd2ffbca67"
+    },
     "github": {
       "source": "callstackincubator/agent-skills",
       "sourceType": "github",
@@ -95,6 +105,11 @@
       "source": "ravnhq/ai-toolkit",
       "sourceType": "github",
       "computedHash": "005e1cd51d4322531a401daca3d690affcbcd197f327f89120d6cfc165233a6e"
+    },
+    "hono": {
+      "source": "yusukebe/hono-skill",
+      "sourceType": "github",
+      "computedHash": "220e5e1b12bbaeec49ec362b6e2262d77632d0536e9758bba9acbbc323fef990"
     },
     "lang-typescript": {
       "source": "ravnhq/ai-toolkit",
@@ -115,6 +130,16 @@
       "source": "expo/skills",
       "sourceType": "github",
       "computedHash": "3cd0ba91f359f9f84cd40f36f356287994a0e952520fac6e03ef7952d0397879"
+    },
+    "nodejs-backend-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "c6a99966c2565acc388e574039127abc770bb9a3338be761e421e16f023f702b"
+    },
+    "nodejs-best-practices": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "64f10ff6795265dc4a97a72af86ee309fe57e6c35507775a4da893985984956b"
     },
     "platform-backend": {
       "source": "ravnhq/ai-toolkit",
@@ -141,6 +166,11 @@
       "sourceType": "github",
       "computedHash": "ee151704144633effb50132739671f6cb07665aa430d1c2dedd3766a682cbc6c"
     },
+    "playwright-best-practices": {
+      "source": "currents-dev/playwright-best-practices-skill",
+      "sourceType": "github",
+      "computedHash": "320eaf861e3a0a923bfaad0726cb311a3fe30093378f8d26c89b9c5ae5c42b35"
+    },
     "pr-comments-address": {
       "source": "ravnhq/ai-toolkit",
       "sourceType": "github",
@@ -165,6 +195,16 @@
       "source": "ravnhq/ai-toolkit",
       "sourceType": "github",
       "computedHash": "f42d24a72733060503a5246492f85af73593057836065c53b195db9e88d0237e"
+    },
+    "seo": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "computedHash": "f1fed683b76913d26fbf1aa1e008e6932f7771701fc3a79925b042236aa4681a"
+    },
+    "sleek-design-mobile-apps": {
+      "source": "sleekdotdesign/agent-skills",
+      "sourceType": "github",
+      "computedHash": "bf5dd6714897077fdc7a4ba007e5a7ee9696e5afc4620523738be786366852f8"
     },
     "swift-concurrency": {
       "source": "ravnhq/ai-toolkit",
@@ -206,10 +246,20 @@
       "sourceType": "github",
       "computedHash": "7fc5be5418850db7add1ddc70d80b3936dd9100a319bdbe32ac560a7d3758c3e"
     },
+    "turborepo": {
+      "source": "vercel/turborepo",
+      "sourceType": "github",
+      "computedHash": "f59628995c41e11858d63acf2792030325c9ca0174df5d1bae5c43ded301d851"
+    },
     "type-system-audit": {
       "source": "ravnhq/ai-toolkit",
       "sourceType": "github",
       "computedHash": "84203a437e580b33bbb7083641fea64990040bc03c9d9d190bd50c632b8640c3"
+    },
+    "typescript-advanced-types": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "3a3be8c925f96ac4e1280db28a01677e7ca5197f3792de2bbf35ab3bb324b6dd"
     },
     "upgrading-expo": {
       "source": "expo/skills",
@@ -230,6 +280,26 @@
       "source": "callstackincubator/agent-skills",
       "sourceType": "github",
       "computedHash": "aff52c5f1470ceedfa83c6bd7936b5bf70d347d72724585e3a2911d6d009caf4"
+    },
+    "vercel-composition-patterns": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "computedHash": "575757e3e25761c8c562d6e395d29f0b76c98b1273c0bd72d88e6ab1bc9c7d42"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "computedHash": "43ca6c197f8ec13055079da7053232d477068b03ca443f9ac1bc819b95cdd432"
+    },
+    "vite": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "867ff66238f3152e9c494339ad08dc432dd0df5bcf5cc7a00b61a72b580eb908"
+    },
+    "vitest": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "669c7275f7e1379b06b2bcfa593603aead4c983b951c7e8edbc09640aa38d0a1"
     }
   }
 }
