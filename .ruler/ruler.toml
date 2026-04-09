@@ -11,9 +11,6 @@
 
 default_agents = ["claude", "codex", "cursor", "copilot", "gemini-cli", "opencode"]
 
-# Enable hierarchical rule discovery for monorepo workspaces.
-# Workspace-level .ruler/ directories can extend the root instructions.
-nested = true
 
 [gitignore]
 enabled = true

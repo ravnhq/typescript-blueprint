@@ -1,4 +1,5 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readlinkSync, readdirSync, lstatSync } from 'node:fs';
+import { join, resolve } from 'node:path';
 import process from 'node:process';
 
 const requiredFiles = [
@@ -9,6 +10,7 @@ const requiredFiles = [
   '.claude/agents/researcher.md',
   '.claude/agents/verifier.md',
   '.claude/settings.json',
+  '.claude/hooks/lint-typecheck.sh',
 ];
 
 for (const filePath of requiredFiles) {
@@ -36,42 +38,94 @@ for (const serverName of ['mcp_servers.exa', 'mcp_servers.context7']) {
   }
 }
 
-const requiredSkills = [
-  'ai-md',
-  'interface-design',
-  'ui-ux-pro-max',
-  'promptify',
-  'grill-me',
-  'agent-pr-creator',
-  'pr-comments-address',
-  'rewrite-commit-history',
-  'building-native-ui',
-  'native-data-fetching',
-  'expo-api-routes',
-  'expo-dev-client',
-  'expo-module',
-  'expo-tailwind-setup',
-  'expo-cicd-workflows',
-  'expo-deployment',
-  'upgrading-expo',
-  'use-dom',
-  'react-native-best-practices',
-  'github',
-  'github-actions',
-  'upgrading-react-native',
-  'react-native-brownfield-migration',
-  'validate-skills',
-];
+if (!existsSync('skills-lock.json')) {
+  throw new Error('Missing skills-lock.json — run `bunx skills add` to install skills');
+}
 
-for (const skillName of requiredSkills) {
-  const skillPath = `.agents/skills/${skillName}/SKILL.md`;
-  if (!existsSync(skillPath)) {
-    throw new Error(`Missing bundled skill: ${skillPath}`);
+// === NEW: Dynamic skills reading from .agents/skills/ ===
+const agentsSkillsDir = '.agents/skills';
+const dynamicSkills = new Set();
+
+const agentSkillEntries = readdirSync(agentsSkillsDir);
+for (const skillName of agentSkillEntries) {
+  const skillPath = join(agentsSkillsDir, skillName);
+  const skillStat = lstatSync(skillPath);
+
+  if (skillStat.isDirectory()) {
+    const skillMdPath = join(skillPath, 'SKILL.md');
+    if (!existsSync(skillMdPath)) {
+      throw new Error(`Skill directory missing SKILL.md: ${skillMdPath}`);
+    }
+    dynamicSkills.add(skillName);
   }
 }
 
-if (!existsSync('skills-lock.json')) {
-  throw new Error('Missing skills-lock.json — run `bunx skills add` to install skills');
+// === NEW: Symlink integrity check ===
+const claudeSkillsDir = '.claude/skills';
+const claudeSkillEntries = readdirSync(claudeSkillsDir);
+
+for (const linkName of claudeSkillEntries) {
+  const linkPath = join(claudeSkillsDir, linkName);
+  const linkStat = lstatSync(linkPath);
+
+  if (!linkStat.isSymbolicLink()) {
+    throw new Error(`Entry in .claude/skills/ is not a symlink: ${linkPath}`);
+  }
+
+  const linkTarget = readlinkSync(linkPath);
+  const resolvedTarget = resolve(join(claudeSkillsDir, linkName, '..'), linkTarget);
+  const expectedTarget = resolve(join('.agents/skills', linkName));
+
+  if (resolvedTarget !== expectedTarget) {
+    throw new Error(
+      `Symlink ${linkPath} points to incorrect target. Expected: ../../.agents/skills/${linkName}`,
+    );
+  }
+}
+
+// === NEW: Cross-reference skills count ===
+const agentsSkillCount = dynamicSkills.size;
+const claudeSkillCount = claudeSkillEntries.length;
+
+if (agentsSkillCount !== claudeSkillCount) {
+  throw new Error(
+    `Skills count mismatch: .agents/skills/ has ${agentsSkillCount} skills but .claude/skills/ has ${claudeSkillCount} symlinks`,
+  );
+}
+
+// === NEW: Hook script executable check ===
+const hookPath = '.claude/hooks/lint-typecheck.sh';
+const hookStat = lstatSync(hookPath);
+const isExecutable = (hookStat.mode & parseInt('0111', 8)) !== 0;
+
+if (!isExecutable) {
+  throw new Error(`Hook script is not executable: ${hookPath}`);
+}
+
+// === NEW: MCP consistency validation ===
+const mcpJsonPath = '.mcp.json';
+const mcpJsonContent = readFileSync(mcpJsonPath, 'utf8');
+let mcpServers;
+
+try {
+  mcpServers = JSON.parse(mcpJsonContent).mcpServers;
+} catch {
+  throw new Error(`.mcp.json is not valid JSON`);
+}
+
+const mcpServerNames = new Set(Object.keys(mcpServers));
+
+// Extract server names from ruler.toml using string matching
+const rulerMcpServerMatches = rulerConfig.match(/\[mcp_servers\.(\w+)\]/g) || [];
+const rulerMcpServers = new Set(
+  rulerMcpServerMatches.map((match) => match.replace(/^\[mcp_servers\./, '').replace(/\]$/, '')),
+);
+
+// Verify every MCP server in ruler.toml exists in .mcp.json
+for (const serverName of rulerMcpServers) {
+  if (!mcpServerNames.has(serverName)) {
+    throw new Error(`MCP server '${serverName}' found in ruler.toml but not in .mcp.json`);
+  }
 }
 
 process.stdout.write('AI tooling configuration looks consistent.\n');
