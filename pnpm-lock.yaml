@@ -54,10 +54,10 @@ importers:
         version: link:../../packages/shared
       '@hono/node-server':
         specifier: ^1.14.1
-        version: 1.19.12(hono@4.12.10)
+        version: 1.19.12(hono@4.12.14)
       hono:
-        specifier: ^4.12.10
-        version: 4.12.10
+        specifier: ^4.12.14
+        version: 4.12.14
       pino:
         specifier: ^10.3.1
         version: 10.3.1
@@ -3388,8 +3388,8 @@ packages:
   hermes-parser@0.33.3:
     resolution: {integrity: sha512-Yg3HgaG4CqgyowtYjX/FsnPAuZdHOqSMtnbpylbptsQ9nwwSKsy6uRWcGO5RK0EqiX12q8HvDWKgeAVajRO5DA==}
 
-  hono@4.12.10:
-    resolution: {integrity: sha512-mx/p18PLy5og9ufies2GOSUqep98Td9q4i/EF6X7yJgAiIopxqdfIO3jbqsi3jRgTgw88jMDEzVKi+V2EF+27w==}
+  hono@4.12.14:
+    resolution: {integrity: sha512-am5zfg3yu6sqn5yjKBNqhnTX7Cv+m00ox+7jbaKkrLMRJ4rAdldd1xPd/JzbBWspqaQv6RSTrgFN95EsfhC+7w==}
     engines: {node: '>=16.9.0'}
 
   hosted-git-info@7.0.2:
@@ -4298,6 +4298,9 @@ packages:
 
   react-is@19.2.4:
     resolution: {integrity: sha512-W+EWGn2v0ApPKgKKCy/7s7WHXkboGcsrXE+2joLyVxkbyVQfO3MUEaUQDHoSmb8TFFrSKYa9mw64WZHNHSDzYA==}
+
+  react-is@19.2.5:
+    resolution: {integrity: sha512-Dn0t8IQhCmeIT3wu+Apm1/YVsJXsGWi6k4sPdnBIdqMVtHtv0IGi6dcpNpNkNac0zB2uUAqNX3MHzN8c+z2rwQ==}
 
   react-native-is-edge-to-edge@1.3.1:
     resolution: {integrity: sha512-NIXU/iT5+ORyCc7p0z2nnlkouYKX425vuU1OEm6bMMtWWR9yvb+Xg5AZmImTKoF9abxCPqrKC3rOZsKzUYgYZA==}
@@ -6445,9 +6448,9 @@ snapshots:
       chalk: 4.1.2
       js-yaml: 4.1.1
 
-  '@hono/node-server@1.19.12(hono@4.12.10)':
+  '@hono/node-server@1.19.12(hono@4.12.14)':
     dependencies:
-      hono: 4.12.10
+      hono: 4.12.14
 
   '@humanfs/core@0.19.1': {}
 
@@ -8780,7 +8783,7 @@ snapshots:
     dependencies:
       hermes-estree: 0.33.3
 
-  hono@4.12.10: {}
+  hono@4.12.14: {}
 
   hosted-git-info@7.0.2:
     dependencies:
@@ -9790,6 +9793,8 @@ snapshots:
 
   react-is@19.2.4: {}
 
+  react-is@19.2.5: {}
+
   react-native-is-edge-to-edge@1.3.1(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0):
     dependencies:
       react: 19.2.0
@@ -9889,7 +9894,7 @@ snapshots:
   react-test-renderer@19.2.4(react@19.2.0):
     dependencies:
       react: 19.2.0
-      react-is: 19.2.4
+      react-is: 19.2.5
       scheduler: 0.27.0
 
   react@19.2.0: {}
