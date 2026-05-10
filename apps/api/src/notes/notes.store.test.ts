@@ -163,6 +163,33 @@ describe('notes store', () => {
       }
     });
 
+    it('treats truncated JSON as empty data rather than throwing', () => {
+      const directory = mkdtempSync(join(tmpdir(), 'blueprint-notes-'));
+      const filePath = join(directory, 'notes.json');
+      // Simulate a partial write — invalid JSON, not just an unexpected shape.
+      writeFileSync(filePath, '{"notes":[');
+      const fileStore = createFileBackedNotesStore({ filePath });
+
+      const allNotesResult = fileStore.getAllNotes();
+      expect(allNotesResult.isOk()).toBe(true);
+      if (!allNotesResult.isOk()) {
+        throw new Error('Expected truncated JSON to be treated as empty data');
+      }
+      expect(allNotesResult.value).toEqual([]);
+    });
+
+    it('writes atomically: no .tmp file remains after createNote succeeds', () => {
+      const directory = mkdtempSync(join(tmpdir(), 'blueprint-notes-'));
+      const filePath = join(directory, 'notes.json');
+      const fileStore = createFileBackedNotesStore({ filePath });
+
+      fileStore.createNote({ title: 'Atomic', body: 'Stored via rename' });
+
+      // Final file present, staging file cleaned up by rename.
+      expect(readFileSync(filePath, 'utf8')).toContain('Atomic');
+      expect(() => readFileSync(`${filePath}.tmp`, 'utf8')).toThrow();
+    });
+
     it('returns error for non-existent note in file-backed store', () => {
       const directory = mkdtempSync(join(tmpdir(), 'blueprint-notes-'));
       const filePath = join(directory, 'notes.json');

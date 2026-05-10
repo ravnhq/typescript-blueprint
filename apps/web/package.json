@@ -10,6 +10,7 @@
     "generate": "tsr generate",
     "typecheck": "tsr generate && tsc --noEmit",
     "lint": "tsr generate && eslint src --max-warnings=0",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
     "test:unit": "vitest run --coverage",
     "test:integration": "vitest run --config vitest.integration.config.ts",
     "test:e2e": "playwright test"

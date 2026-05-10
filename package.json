@@ -10,6 +10,8 @@
     "test:integration": "turbo test:integration",
     "test:e2e": "turbo test:e2e",
     "test:ai-tooling": "node scripts/check-ai-tooling.mjs",
+    "verify": "turbo run lint typecheck test:unit format:check && node scripts/check-ai-tooling.mjs",
+    "format:check": "prettier --check \"**/*.{ts,tsx,mts,cts,js,mjs,cjs}\" --ignore-path .gitignore",
     "dev": "turbo dev",
     "prepare": "husky && ruler apply"
   },

@@ -15,7 +15,9 @@
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --max-warnings=0",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
     "test:unit": "vitest run --coverage",
+    "test:contract": "vitest run --config vitest.config.ts --reporter=verbose src/boundary",
     "test:integration": "vitest run --config vitest.integration.config.ts"
   },
   "dependencies": {

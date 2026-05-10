@@ -8,6 +8,7 @@
     "build": "expo export --platform android --output-dir dist/android && expo export --platform ios --output-dir dist/ios && expo config --type public --json > /dev/null",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src app --max-warnings=0",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\" \"app/**/*.{ts,tsx}\"",
     "test:unit": "vitest run --coverage",
     "test:integration": "vitest run --config vitest.integration.config.ts"
   },

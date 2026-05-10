@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import {
   ok,
@@ -47,13 +47,26 @@ function parsePersistedNotes(filePath: string): Note[] {
     return [];
   }
 
-  const parsed = persistedNotesSchema.safeParse(JSON.parse(readFileSync(filePath, 'utf8')));
+  let raw: unknown;
+  try {
+    raw = JSON.parse(readFileSync(filePath, 'utf8'));
+  } catch {
+    // Truncated or otherwise malformed JSON — treat as empty rather than throwing
+    // past the Result envelope. Schema-level corruption is handled below.
+    return [];
+  }
+
+  const parsed = persistedNotesSchema.safeParse(raw);
   return parsed.success ? parsed.data.notes : [];
 }
 
 function persistNotes(filePath: string, notes: Note[]): void {
+  // Atomic write: stage to a sibling tmp file, then rename. `renameSync` is
+  // atomic on the same filesystem, so readers never observe a half-written file.
   mkdirSync(dirname(filePath), { recursive: true });
-  writeFileSync(filePath, JSON.stringify({ notes }, null, 2));
+  const tmpPath = `${filePath}.tmp`;
+  writeFileSync(tmpPath, JSON.stringify({ notes }, null, 2));
+  renameSync(tmpPath, filePath);
 }
 
 export function createInMemoryNotesStore(options: NotesStoreOptions = {}): NotesStore {

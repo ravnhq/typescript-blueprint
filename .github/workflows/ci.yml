@@ -132,9 +132,42 @@ jobs:
           path: apps/web/playwright-report/
           retention-days: 7
 
+  test-contract:
+    name: Contract Tests
+    needs: [lint]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo test:contract
+
+  supply-chain:
+    name: Supply Chain
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Audit production dependencies (advisory)
+        run: pnpm audit --prod || true
+      - name: Dependency review
+        if: github.event_name == 'pull_request'
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
+
   build:
     name: Build
-    needs: [test-unit, test-integration]
+    needs: [test-unit, test-integration, test-contract]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
