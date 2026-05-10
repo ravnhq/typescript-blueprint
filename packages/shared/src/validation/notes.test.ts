@@ -1,11 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  noteSchema,
-  createNoteInputSchema,
-  type Note,
-  type CreateNoteInput,
-  type NoteId,
-} from './notes.js';
+import { noteSchema, createNoteInputSchema, type Note, type CreateNoteInput } from './notes.js';
 
 describe('note schemas', () => {
   const validNote = {
@@ -96,7 +90,7 @@ describe('note schemas', () => {
   describe('type inference', () => {
     it('Note type matches schema shape', () => {
       const note: Note = {
-        id: '550e8400-e29b-41d4-a716-446655440000' as NoteId,
+        id: '550e8400-e29b-41d4-a716-446655440000',
         title: 'Test',
         body: 'Body',
         createdAt: '2026-04-02T12:00:00.000Z',

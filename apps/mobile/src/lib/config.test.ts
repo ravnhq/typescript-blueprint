@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-const platformMock = vi.hoisted(() => ({ OS: 'android' as string }));
+const platformMock = vi.hoisted(() => ({ OS: 'android' }));
 
 vi.mock('react-native', () => ({
   Platform: platformMock,

@@ -35,19 +35,19 @@ vi.mock('react-native', () => ({
   StyleSheet: { create: (s: Record<string, unknown>) => s },
 }));
 
-import type { Note, NoteId } from '@blueprint/shared';
+import type { Note } from '@blueprint/shared';
 import { NoteList } from './note-list';
 
 describe('NoteList', () => {
   const mockNotes: Note[] = [
     {
-      id: '550e8400-e29b-41d4-a716-446655440001' as NoteId,
+      id: '550e8400-e29b-41d4-a716-446655440001',
       title: 'First Note',
       body: 'Body of first note',
       createdAt: '2026-04-02T12:00:00.000Z',
     },
     {
-      id: '550e8400-e29b-41d4-a716-446655440002' as NoteId,
+      id: '550e8400-e29b-41d4-a716-446655440002',
       title: 'Second Note',
       body: 'Body of second note',
       createdAt: '2026-04-02T13:00:00.000Z',

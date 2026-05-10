@@ -35,7 +35,7 @@ describe('notes store', () => {
     });
 
     it('rejects invalid input', () => {
-      const input = { title: '', body: 'Content' } as CreateNoteInput;
+      const input = { title: '', body: 'Content' };
       const result = store.createNote(input);
       expect(result.isErr()).toBe(true);
     });
@@ -143,7 +143,7 @@ describe('notes store', () => {
       const filePath = join(directory, 'notes.json');
       const fileStore = createFileBackedNotesStore({ filePath });
 
-      const result = fileStore.createNote({ title: '', body: 'Content' } as CreateNoteInput);
+      const result = fileStore.createNote({ title: '', body: 'Content' });
       expect(result.isErr()).toBe(true);
     });
 

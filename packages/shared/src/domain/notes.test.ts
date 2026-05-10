@@ -22,7 +22,7 @@ describe('buildNote', () => {
   });
 
   it('rejects invalid input with empty title', () => {
-    const input = { title: '', body: 'Content' } as CreateNoteInput;
+    const input = { title: '', body: 'Content' };
     const result = buildNote(
       '550e8400-e29b-41d4-a716-446655440000' as NoteId,
       input,
