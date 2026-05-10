@@ -57,6 +57,12 @@ routeTree.gen.ts
 promptify-*.md
 app.config.timestamp_*
 
+# Claude Code (local overrides)
+.claude/settings.local.json
+
+# TanStack Start
+.tanstack/
+
 
 # START Ruler Generated Files
 /.codex/config.toml
