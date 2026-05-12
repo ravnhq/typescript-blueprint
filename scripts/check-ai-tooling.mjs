@@ -21,7 +21,10 @@ for (const filePath of requiredFiles) {
 
 const agentsInstructions = readFileSync('.ruler/AGENTS.md', 'utf8');
 for (const agentName of ['implementer', 'researcher', 'reviewer', 'verifier']) {
-  if (!agentsInstructions.includes(`AGENT: ${agentName}`)) {
+  // Each agent is declared as a labeled block — `<name>:` at the start of a
+  // line — inside the <agents> section (AI-native label format).
+  const agentBlockPattern = new RegExp(`^${agentName}:\\s*$`, 'm');
+  if (!agentBlockPattern.test(agentsInstructions)) {
     throw new Error(`.ruler/AGENTS.md is missing the ${agentName} agent definition`);
   }
 }
