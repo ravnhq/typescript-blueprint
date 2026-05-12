@@ -65,12 +65,16 @@ app.config.timestamp_*
 
 
 # START Ruler Generated Files
+/.claude/agents
+/.codex/agents
 /.codex/config.toml
 /.codex/config.toml.bak
+/.cursor/agents
 /.cursor/mcp.json
 /.cursor/mcp.json.bak
 /.gemini/settings.json
 /.gemini/settings.json.bak
+/.github/agents
 /.mcp.json
 /.mcp.json.bak
 /.vscode/mcp.json

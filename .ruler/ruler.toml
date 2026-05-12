@@ -15,6 +15,14 @@ default_agents = ["claude", "codex", "cursor", "copilot", "gemini-cli", "opencod
 [gitignore]
 enabled = true
 
+# --- Subagents ---
+# Source of truth is `.ruler/agents/*.md`. Ruler 0.3.40+ propagates them to
+# native subagent directories for each selected agent (`.claude/agents/`,
+# `.cursor/agents/`, etc.). The default is `false`, which CLEANS UP those
+# directories — keep this `true` so propagation runs.
+[agents]
+enabled = true
+
 # --- MCP Servers ---
 # Distributed to each agent's native MCP config format by `ruler apply`.
 
