@@ -30,7 +30,7 @@
     "@blueprint/eslint-config": "workspace:*",
     "@blueprint/testing-config": "workspace:*",
     "@blueprint/typescript-config": "workspace:*",
-    "@vitest/coverage-v8": "^4.1.5",
-    "vitest": "^4.1.5"
+    "@vitest/coverage-v8": "^4.1.6",
+    "vitest": "^4.1.6"
   }
 }
