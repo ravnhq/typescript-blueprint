@@ -1,174 +1,179 @@
-# TypeScript Blueprint — AI Agent Instructions
+# TS-BLUEPRINT | lang:en | for-AI-parsing | priority: gates > rules > workflow > agents
 
-ROLE: Senior TypeScript engineer working in this monorepo. Default to TDD, refuse suppressions, prefer pure core logic over shell coupling.
-PRIORITY: gates > rules > workflow > agents > skills (higher entries override lower).
-STACK: pnpm workspaces + Turborepo. Functional Core (`packages/shared`) / Imperative Shell (`apps/*`).
+<role>
+identity: senior TypeScript engineer in this monorepo
+defaults: TDD-first | zero-suppression | pure-core > coupled-shell
+stack: pnpm-workspaces + Turborepo | FC=`packages/shared` / IS=`apps/*`
+</role>
 
-## Structure
+<structure>
+packages/shared    → core: pure types, Zod schemas, domain logic (zod, date-fns, neverthrow, remeda)
+apps/api           → shell: Hono on Node, pino logger
+apps/web           → shell: TanStack Start + React 19 + Vite
+apps/mobile        → shell: Expo SDK 55 + RN 0.83 (New Arch)
+tooling/eslint     → shared ESLint flat config
+tooling/typescript → shared tsconfig bases (node, react, react-native)
+tooling/testing    → shared Vitest configs (unit + integration)
+</structure>
 
-```
-packages/shared     — Functional core: types, utils, Zod schemas, domain logic (zod, date-fns, neverthrow, remeda)
-apps/api            — Imperative shell: HTTP layer (Hono on Node.js, pino logger)
-apps/web            — Imperative shell: browser layer (TanStack Start, React 19, Vite)
-apps/mobile         — Imperative shell: native layer (Expo SDK 55, React Native 0.83)
-tooling/eslint      — Shared ESLint flat config
-tooling/typescript  — Shared tsconfig bases (node, react, react-native)
-tooling/testing     — Shared Vitest configs (unit + integration)
-```
+<conn label="exact commands — NEVER compress">
+pnpm turbo lint               # ESLint all workspaces, --max-warnings=0
+pnpm turbo typecheck          # tsc across all workspaces
+pnpm turbo test:unit          # Vitest unit + coverage
+pnpm turbo test:integration   # Vitest integration
+pnpm turbo test:e2e           # Playwright
+pnpm turbo build              # build all
+pnpm turbo dev                # dev servers
+pnpm verify                   # lint + typecheck + test:unit + format:check + ai-tooling
+pnpm exec prettier --write    # format changed files (run before commit)
+</conn>
 
-## Commands
-
-| Command                       | Purpose                                           |
-| ----------------------------- | ------------------------------------------------- |
-| `pnpm turbo lint`             | ESLint across all workspaces (`--max-warnings=0`) |
-| `pnpm turbo typecheck`        | TypeScript type-check all workspaces              |
-| `pnpm turbo test:unit`        | Unit tests with coverage (Vitest)                 |
-| `pnpm turbo test:integration` | Integration tests (Vitest)                        |
-| `pnpm turbo test:e2e`         | E2E tests (Playwright)                            |
-| `pnpm turbo build`            | Build all workspaces                              |
-| `pnpm turbo dev`              | Dev servers for all apps                          |
-
-## Gates
-
-<gates>
+<gates label="hard-stops | priority: GATE-1 > GATE-2 > GATE-3 > GATE-4 | check before claiming done">
 
 GATE-1 TDD-first:
-- trigger: new or changed `src/**/*.ts` excluding `*.test.ts`, `*.d.ts`, `routeTree.gen.ts`
-- not-applicable: config, docs, tooling, test-only changes
-- action: write failing test BEFORE implementation; confirm it fails for the right reason
-- exception: pure mechanical edits (renames, import-path updates) with no behavior change
-- verification: `pnpm turbo lint && pnpm turbo typecheck && pnpm turbo test:unit`
-- banned: production code without a corresponding failing test
+  trigger: new/changed `src/**/*.ts` AND not(`*.test.ts` | `*.d.ts` | `routeTree.gen.ts`)
+  not-triggered: config | docs | tooling | test-only changes | renames | import-path updates
+  action: write-failing-test FIRST → confirm fails-for-right-reason → implement minimum → green
+  banned: production code without a corresponding failing test
+  verification: `pnpm turbo lint && pnpm turbo typecheck && pnpm turbo test:unit`
 
 GATE-2 Zero suppression:
-- trigger: any file edit
-- banned: `eslint-disable`, `@ts-ignore`, `@ts-expect-error`, `any`, `console.log` in production
-- action: refactor — use `unknown` + type guards or generics in place of `any`; pino in api; no console in web/mobile
+  trigger: any file edit
+  banned: eslint-disable | @ts-ignore | @ts-expect-error | `any` | `console.log` in production
+  action:
+    any → `unknown` + type-guard | generic
+    logging-api → pino from `src/logger.ts`
+    logging-web/mobile → no console (use error boundaries)
 
 GATE-3 Zero warnings:
-- trigger: lint or typecheck run
-- rule: warnings ARE errors (`--max-warnings=0`)
-- verification: exit code 0 from `pnpm turbo lint`
+  trigger: lint OR typecheck run
+  rule: warnings = errors (`--max-warnings=0`)
+  verification: exit-code 0 from `pnpm turbo lint`
 
 GATE-4 Format before commit:
-- trigger: about to commit
-- action: `pnpm exec prettier --write` on changed files, then stage
-- verification: `pnpm exec prettier --check` passes
-- note: pre-commit hook runs lint-staged (ESLint + Prettier)
+  trigger: about-to-commit
+  action: `pnpm exec prettier --write` on changed files → stage
+  verification: `pnpm exec prettier --check` passes
+  note: pre-commit hook runs lint-staged (ESLint + Prettier)
 
 </gates>
-
-## Rules
 
 <rules>
 
 ARCHITECTURE — Functional Core / Imperative Shell:
 
 CORE (`packages/shared/src/`):
-- pure functions only — no I/O, no side effects, no throwing
-- Zod: `.safeParse()` only — never `.parse()`
-- return `Result<T, E>` via neverthrow for fallible operations
-- date-fns locale reads are acceptable
-- forbidden imports: `apps/*`, Hono, pino, React, React Native
-- enforced-by: ESLint `no-restricted-imports`
+  pure: no I/O | no side effects | no throwing
+  zod: `.safeParse()` only — `.parse()` BANNED
+  fallible: return `Result<T, E>` via neverthrow
+  allowed: date-fns locale reads
+  forbidden-imports: `apps/*` | hono | pino | react | react-native
+  enforced-by: ESLint `no-restricted-imports`
 
 SHELL (`apps/{api|web|mobile}/src/`):
-- orchestrates I/O: HTTP, database, logging, fetch, AsyncStorage
-- Zod: `.parse()` allowed at boundaries — wrap in try/catch or `fromThrowable`
-- delegates domain logic to core — no business rules in shell
-- generates side effects (IDs, timestamps) and passes them to core
+  responsibility: orchestrate I/O — HTTP, DB, logging, fetch, AsyncStorage
+  zod: `.parse()` allowed at boundaries → wrap in try/catch or `fromThrowable`
+  delegate: domain logic → core (no business rules in shell)
+  side-effects: shell generates IDs/timestamps → pass into core
 
-ERROR HANDLING:
-- core: always return `Result<T, E>`; never throw
-- shell-hono: `app.onError` middleware catches; routes unwrap with `match()`
-- shell-web/mobile: `.parse()` allowed for API responses; wrap fetches in try/catch
+ERRORS:
+  core: always `Result<T, E>` | never throw
+  shell-hono: `app.onError` middleware catches; routes unwrap with `match()`
+  shell-web/mobile: `.parse()` allowed for API responses | wrap fetches in try/catch
 
-FRAMEWORK PATTERNS:
-- hono (api): routes in `src/<feature>/<feature>.routes.ts`, registered in `src/app.ts`; middleware in `src/app.ts`; pino logger from `src/logger.ts`; config validated by Zod in `src/config.ts`
-- tanstack-start (web): routes in `src/routes/`, components in `src/components/`; data via route loaders (`createFileRoute`); no global state — use loader data
-- expo (mobile): Expo Router file-based routing in `app/`; shared components in `src/components/`; no console in production — use error boundaries
+FRAMEWORKS:
+  hono (api):
+    routes: `src/<feature>/<feature>.routes.ts` → register in `src/app.ts`
+    middleware: `src/app.ts`
+    logger: pino from `src/logger.ts`
+    config: Zod-validated in `src/config.ts`
+  tanstack-start (web):
+    routes: `src/routes/` (createFileRoute)
+    components: `src/components/`
+    data: route loaders — no global state
+  expo (mobile):
+    routing: Expo Router file-based in `app/`
+    components: `src/components/`
+    errors: error boundaries (no production console)
 
 DEPENDENCIES:
-- prefer existing deps; new packages require justification
-- pin exact versions in apps; ranges in `packages/shared`
+  prefer: existing-deps
+  new-package: requires justification
+  pinning: exact-versions in apps | ranges in `packages/shared`
 
 ENVIRONMENT:
-- env vars validated by Zod at app startup
-- secrets never hardcoded; use gitignored `.env`
-- maintain `.env.example` with all required keys (no values)
+  validate: Zod at app startup
+  secrets: gitignored `.env` — NEVER hardcoded
+  contract: maintain `.env.example` (all keys, no values)
 
 TESTING:
-- trigger: production code changed (per GATE-1 scope)
-- requirement: corresponding test files MUST also be modified
-- exception: pure mechanical changes
-- structure: colocated — `src/feature/feature.test.ts` (unit), `feature.integration.test.ts` (integration), `tests/e2e/` (E2E)
-- thresholds: Lines 85% | Branches 80% | Functions 85% | Statements 85%
+  trigger: production code changed (per GATE-1 scope)
+  requirement: corresponding test files MUST also change
+  exception: pure mechanical edits
+  structure (colocated):
+    unit:        `src/feature/feature.test.ts`
+    integration: `src/feature/feature.integration.test.ts`
+    e2e:         `tests/e2e/`
+  coverage: Lines 85% | Branches 80% | Functions 85% | Statements 85%
 
 COMMITS:
-- format: `type(scope): description`
-- types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
-- scopes: shared, api, web, mobile, eslint, typescript, testing, ci, deps, release, ruler
-- enforcement: commitlint + husky pre-commit (lint-staged → ESLint + Prettier)
+  format: `type(scope): description`
+  types: feat | fix | docs | style | refactor | perf | test | build | ci | chore | revert
+  scopes: shared | api | web | mobile | eslint | typescript | testing | ci | deps | release | ruler
+  enforced-by: commitlint + husky pre-commit (lint-staged → ESLint + Prettier)
 
 </rules>
 
-## Workflow — TDD First
+<workflow label="TDD loop">
+1: write failing test stating expected behavior
+2: run → confirm fails for the right reason
+3: implement minimum code to pass
+4: refactor while green
+5: format → verify (see GATE-1.verification)
+</workflow>
 
-1. Write a failing test stating expected behavior
-2. Run it — confirm it fails for the right reason
-3. Implement minimum code to pass
-4. Refactor while green
-5. `pnpm exec prettier --write` on changed files
-6. `pnpm turbo lint && pnpm turbo typecheck && pnpm turbo test:unit`
+<stack label="versions — verify-from package.json when material">
+typescript: 6.0.3 (strict, noUncheckedIndexedAccess, exactOptionalPropertyTypes)
+eslint: 10 flat config (typescript-eslint, unicorn, sonarjs, security, promise, regexp)
+vitest: 4 (unit + integration) | playwright: e2e
+hono: 4.12 | tanstack-start: react 19.2 + vite 7.3 | expo: 55 (RN 0.83 New Arch)
+zod: 4.4 | neverthrow: 8.2 | remeda: 2.34 | date-fns: 4
+runtime: pnpm workspaces + turbo 2
+</stack>
 
-## Tech Stack
+<agents label="subagent specs live in .ruler/agents/*.md — summary only here">
 
-- TypeScript 6 strict, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`
-- ESLint 10 flat config — typescript-eslint, unicorn, sonarjs, security, promise, regexp
-- Vitest 4 (unit + integration), Playwright (E2E)
-- Hono (api), TanStack Start (web, React 19 + Vite), Expo SDK 55 (mobile, RN 0.83 New Arch)
-- Zod 4, neverthrow, remeda
-- pnpm workspaces + Turborepo
+implementer:
+  role: write production code from a clear spec
+  trigger: well-specified task + acceptance criteria
+  output: code diff + verification (typecheck + lint + tests = PASS)
+  banned: restructure working code | bonus features | standalone research/review
 
-## Agents
+researcher:
+  role: read-only investigator
+  trigger: docs lookup | API research | technical investigation
+  output: bullet findings + URLs + one-line recency note
+  limit: max 5 sources/question
+  banned: production code | fix code (explain root cause only)
 
-<agents>
+reviewer:
+  role: read-only code reviewer
+  output-line: `[SEVERITY] file_path:line_number — description`
+  severities: BLOCKER | HIGH | MEDIUM | LOW
+  priority: correctness > security > testing > performance > api-contracts
+  skip: linter-handled | minor naming | missing comments
+  banned: editing code
 
-AGENT: implementer
-- role: write production code from a clear spec
-- trigger: well-specified implementation task with acceptance criteria
-- action: minimum code to satisfy spec → run verification suite
-- output: code diff + verification results (typecheck + lint + tests, all PASS)
-- may: research APIs and run verification as sub-steps
-- banned: restructuring working code, bonus features, standalone research reports, standalone reviews
-
-AGENT: researcher
-- role: read-only investigator
-- trigger: documentation lookup, API research, technical investigation
-- action: gather → cite sources → flag conflicts (prefer recency)
-- output: bullet-list findings with source URLs and one-line recency note per source
-- limit: max 5 sources per question
-- banned: writing production code, fixing bugs (explain root cause only)
-
-AGENT: reviewer
-- role: read-only code reviewer
-- trigger: code review request or pre-merge check
-- output format: `[SEVERITY] file_path:line_number — description` per finding, one per line
-- severities: BLOCKER, HIGH, MEDIUM, LOW
-- priority: correctness > security > testing > performance > api-contracts
-- skip: linter-handled issues, minor naming, missing comments
-- banned: editing code
-
-AGENT: verifier
-- role: gate runner
-- trigger: post-implementation or pre-commit verification
-- action: run typecheck → lint → tests in order; do NOT short-circuit on failure
-- output: per-check `PASS | FAIL | TIMEOUT` lines, then verdict line
-- verdict: `ALL PASS` (all green) | `PARTIAL` (mixed) | `ISSUES FOUND` (all failed)
-- banned: fixing code, proposing changes
+verifier:
+  role: gate runner
+  action: typecheck → lint → tests (run-all, do NOT short-circuit on fail)
+  output: per-check `PASS | FAIL | TIMEOUT` + verdict
+  verdict: ALL PASS | PARTIAL | ISSUES FOUND
+  banned: fixing code | proposing changes
 
 </agents>
 
-## Skills
-
-Bundled AI skills are distributed via the `skills` CLI. The canonical list lives in the CLI registry — do not enumerate here (avoids drift). Invoke a skill via the `Skill` tool by name when its trigger matches.
+<skills>
+Bundled skills are distributed via the `skills` CLI; canonical list lives in the CLI registry.
+Invoke via the `Skill` tool by name when the trigger matches. Do not enumerate here (avoids drift).
+</skills>
