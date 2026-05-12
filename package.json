@@ -30,10 +30,11 @@
   },
   "lint-staged": {
     "*.{ts,tsx,mts,cts}": [
-      "eslint --max-warnings=0 --no-warn-ignored"
+      "eslint --max-warnings=0 --no-warn-ignored",
+      "prettier --write"
     ],
-    "*.{ts,tsx,mts,cts,js,mjs,cjs}": [
-      "prettier --check"
+    "*.{js,mjs,cjs}": [
+      "prettier --write"
     ]
   },
   "engines": {
